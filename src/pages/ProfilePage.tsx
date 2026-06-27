@@ -5,10 +5,12 @@ import { Avatar } from '../components/ui/Avatar';
 import { mockUsers, mockPosts } from '../utils/mockData';
 import { PostCard } from '../components/widgets/PostCard';
 import { Settings, Award } from 'lucide-react';
+import { ProfileEditForm } from '../components/user/ProfileEditForm';
 
 export function ProfilePage() {
   const { username } = useParams<{ username: string }>();
   const [activeTab, setActiveTab] = useState<'posts' | 'comments'>('posts');
+  const [isEditing, setIsEditing] = useState(false);
   
   const user = mockUsers.find(u => u.username === username);
   const userPosts = mockPosts.filter(p => !p.author.isAnonymous && p.author.user.id === user?.id);
@@ -23,13 +25,30 @@ export function ProfilePage() {
     );
   }
 
+  const handleSave = (data: any) => {
+    // Mock save logic (would update backend here)
+    if (data.interests && typeof data.interests === 'string') {
+        user.interests = data.interests.split(',').map((s: string) => s.trim());
+    }
+    user.bio = data.bio;
+    user.gender = data.gender;
+    user.age_range = data.age_range;
+    user.phone = data.phone;
+    user.dob = data.dob;
+    setIsEditing(false);
+  };
+
   return (
     <PageWrapper>
       <div className="max-w-3xl mx-auto w-full">
-        {/* Profile Header Card */}
+        {isEditing ? (
+            <div className="mb-8">
+                <ProfileEditForm user={user} onCancel={() => setIsEditing(false)} onSave={handleSave} />
+            </div>
+        ) : (
         <div className="bg-surface rounded-xl p-6 sm:p-8 shadow-sm border border-border mb-8 relative">
           {isCurrentUser && (
-            <button className="absolute top-6 right-6 font-label-md text-label-md border border-border rounded-full px-4 py-2 hover:bg-surface-container-low transition-colors flex items-center gap-2">
+            <button onClick={() => setIsEditing(true)} className="absolute top-6 right-6 font-label-md text-label-md border border-border rounded-full px-4 py-2 hover:bg-surface-container-low transition-colors flex items-center gap-2">
               <Settings className="w-4 h-4" /> Edit profile
             </button>
           )}
@@ -46,6 +65,14 @@ export function ProfilePage() {
                 <span>•</span>
                 <span>{userPosts.length} posts · 0 comments</span>
               </div>
+              
+              <div className="flex flex-wrap items-center justify-center sm:justify-start gap-3 mb-4">
+                {user.gender && <span className="text-xs bg-surface-container px-2 py-1 rounded-md text-on-surface-variant">Gender: {user.gender}</span>}
+                {user.age_range && <span className="text-xs bg-surface-container px-2 py-1 rounded-md text-on-surface-variant">Age: {user.age_range}</span>}
+                {user.interests && user.interests.map(interest => (
+                  <span key={interest} className="text-xs bg-primary/10 text-primary px-2 py-1 rounded-md">#{interest}</span>
+                ))}
+              </div>
             </div>
           </div>
           
@@ -57,6 +84,7 @@ export function ProfilePage() {
              <span className="font-label-sm text-label-sm text-muted-text ml-2 italic">Badges coming soon</span>
           </div>
         </div>
+        )}
 
         {/* Tabs */}
         <div className="flex gap-8 border-b border-border mb-6">

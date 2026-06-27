@@ -24,7 +24,7 @@ export function LoginPage() {
           <p className="font-body-md text-body-md text-muted-text">Your campus. Unfiltered.</p>
         </div>
         
-        <div className="bg-white rounded-[24px] p-8 shadow-md">
+        <div className="bg-surface rounded-[24px] p-8 shadow-md border border-border">
           <h2 className="font-headline-lg text-headline-lg font-bold text-on-surface mb-6">Log in</h2>
           
           <form className="flex flex-col gap-5" onSubmit={handleLogin}>
@@ -77,7 +77,7 @@ export function LoginPage() {
             
             <button 
               type="button"
-              className="w-full bg-white border border-border text-on-surface font-label-md text-label-md px-6 py-3.5 rounded-full hover:bg-surface-container-low transition-colors flex items-center justify-center gap-3"
+              className="w-full bg-surface border border-border text-on-surface font-label-md text-label-md px-6 py-3.5 rounded-full hover:bg-surface-container-low transition-colors flex items-center justify-center gap-3"
             >
               <svg viewBox="0 0 24 24" width="20" height="20" xmlns="http://www.w3.org/2000/svg">
                 <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>

@@ -10,7 +10,7 @@ export function AdminPostsPage() {
         <header className="flex justify-between items-center mb-8">
           <h1 className="text-2xl font-bold text-on-surface">Post Management</h1>
         </header>
-        <div className="bg-white rounded-xl border border-outline-variant p-8 text-center text-muted-text">
+        <div className="bg-surface rounded-xl border border-outline-variant p-8 text-center text-muted-text">
           Post management coming soon. Total posts: {mockPosts.length}
         </div>
       </div>

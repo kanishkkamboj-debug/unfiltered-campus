@@ -12,7 +12,7 @@ export function ForgotPasswordPage() {
           Unfiltered Campus
         </h1>
         
-        <div className="bg-white rounded-[24px] p-8 shadow-md">
+        <div className="bg-surface rounded-[24px] p-8 shadow-md border border-border">
           {!success ? (
             <>
               <Link to="/login" className="font-label-sm text-label-sm font-semibold text-primary hover:underline mb-4 inline-block">
@@ -47,7 +47,7 @@ export function ForgotPasswordPage() {
               <p className="font-body-sm text-body-sm text-muted-text mb-6">
                 If an account is associated with this email, a reset link is on its way. Check your spam folder too.
               </p>
-              <Link to="/login" className="block w-full text-center bg-white border border-border text-on-surface font-label-md text-label-md px-6 py-3.5 rounded-full hover:bg-surface-container-low transition-colors">
+              <Link to="/login" className="block w-full text-center bg-surface border border-border text-on-surface font-label-md text-label-md px-6 py-3.5 rounded-full hover:bg-surface-container-low transition-colors">
                 Return to login
               </Link>
             </div>

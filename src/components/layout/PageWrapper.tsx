@@ -3,6 +3,7 @@ import { Navbar } from './Navbar';
 import { motion } from 'framer-motion';
 import type { Variants } from 'framer-motion';
 import { TrendingRail } from '../widgets/TrendingRail';
+import { Link } from 'react-router-dom';
 
 interface PageWrapperProps {
   children: React.ReactNode;
@@ -54,9 +55,9 @@ export function PageWrapper({ children, showTrending = false }: PageWrapperProps
             Unfiltered Campus
           </div>
           <div className="flex flex-wrap justify-center gap-6 font-body-md text-body-md font-label-sm text-label-sm">
-            <a className="text-muted-text dark:text-on-secondary-fixed-variant hover:text-primary dark:hover:text-primary-fixed-dim hover:underline transition-all opacity-80 hover:opacity-100" href="#">Guidelines</a>
-            <a className="text-muted-text dark:text-on-secondary-fixed-variant hover:text-primary dark:hover:text-primary-fixed-dim hover:underline transition-all opacity-80 hover:opacity-100" href="#">Privacy</a>
-            <a className="text-muted-text dark:text-on-secondary-fixed-variant hover:text-primary dark:hover:text-primary-fixed-dim hover:underline transition-all opacity-80 hover:opacity-100" href="#">Terms</a>
+            <Link to="/guidelines" className="text-muted-text dark:text-on-secondary-fixed-variant hover:text-primary dark:hover:text-primary-fixed-dim hover:underline transition-all opacity-80 hover:opacity-100">Guidelines</Link>
+            <Link to="/privacy" className="text-muted-text dark:text-on-secondary-fixed-variant hover:text-primary dark:hover:text-primary-fixed-dim hover:underline transition-all opacity-80 hover:opacity-100">Privacy</Link>
+            <Link to="/terms" className="text-muted-text dark:text-on-secondary-fixed-variant hover:text-primary dark:hover:text-primary-fixed-dim hover:underline transition-all opacity-80 hover:opacity-100">Terms</Link>
           </div>
           <div className="mt-4 md:mt-0 font-label-sm text-label-sm text-muted-text text-center md:text-right">
             © 2024 Unfiltered Campus. For students, by students.

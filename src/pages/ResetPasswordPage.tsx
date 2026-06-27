@@ -13,7 +13,7 @@ export function ResetPasswordPage() {
           Unfiltered Campus
         </h1>
         
-        <div className="bg-white rounded-[24px] p-8 shadow-md">
+        <div className="bg-surface rounded-[24px] p-8 shadow-md border border-border">
           {!success ? (
             <>
               <h2 className="font-headline-lg text-headline-lg font-bold text-on-surface mb-6">Choose a new password</h2>

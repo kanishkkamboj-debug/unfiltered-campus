@@ -4,6 +4,7 @@ import { Button } from '../ui/Button';
 import type { TargetType } from '../../types/common.types';
 import type { ReportReason } from '../../types/report.types';
 import { REPORT_REASON_LABELS } from '../../utils/constants';
+import { mockReports } from '../../utils/mockData';
 
 interface ReportModalProps {
   isOpen: boolean;
@@ -21,14 +22,24 @@ const reasons: ReportReason[] = [
   'OTHER',
 ];
 
-export function ReportModal({ isOpen, onClose, targetType, targetId: _targetId }: ReportModalProps) {
+export function ReportModal({ isOpen, onClose, targetType, targetId }: ReportModalProps) {
   const [selected, setSelected] = useState<ReportReason | ''>('');
   const [description, setDescription] = useState('');
   const [submitted, setSubmitted] = useState(false);
 
   const handleSubmit = () => {
     if (!selected) return;
-    // Mock submit
+    
+    // Push to mock back-end
+    mockReports.push({
+      id: `report-${Date.now()}`,
+      targetType,
+      targetId,
+      reason: selected,
+      description,
+      createdAt: new Date().toISOString()
+    });
+    
     setSubmitted(true);
   };
 

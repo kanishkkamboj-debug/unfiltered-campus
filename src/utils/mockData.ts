@@ -5,7 +5,12 @@ export const mockUsers: User[] = [
     id: '11111111-1111-1111-1111-111111111111',
     username: 'alex_campus',
     email: 'alex@university.edu',
+    phone: '555-0101',
+    dob: '2001-05-14',
     bio: 'CS senior. Loves coffee and distributed systems.',
+    interests: ['coding', 'coffee', 'gaming'],
+    age_range: '18-24',
+    gender: 'Male',
     role: 'STUDENT',
     is_banned: false,
     is_suspended: false,
@@ -16,7 +21,12 @@ export const mockUsers: User[] = [
     id: '22222222-2222-2222-2222-222222222222',
     username: 'priya_dev',
     email: 'priya@university.edu',
+    phone: '555-0202',
+    dob: '2002-08-22',
     bio: 'Design system enthusiast.',
+    interests: ['design', 'ui/ux', 'art'],
+    age_range: '18-24',
+    gender: 'Female',
     role: 'STUDENT',
     is_banned: false,
     is_suspended: false,
@@ -28,6 +38,7 @@ export const mockUsers: User[] = [
     username: 'admin_root',
     email: 'admin@university.edu',
     bio: 'Platform Administrator.',
+    interests: ['moderation', 'platform safety'],
     role: 'ADMIN',
     is_banned: false,
     is_suspended: false,
@@ -139,3 +150,5 @@ export const mockComments: Comment[] = [
     replies: []
   }
 ];
+
+export const mockReports: any[] = [];

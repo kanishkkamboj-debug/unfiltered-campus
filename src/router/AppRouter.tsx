@@ -2,8 +2,6 @@ import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { ProtectedRoute } from './ProtectedRoute';
 import { AdminRoute } from './AdminRoute';
-import { Navbar } from '../components/layout/Navbar';
-
 // Pages
 import { HomePage } from '../pages/HomePage';
 import { PostDetailPage } from '../pages/PostDetailPage';
@@ -16,6 +14,12 @@ import { NotificationsPage } from '../pages/NotificationsPage';
 import { ForgotPasswordPage } from '../pages/ForgotPasswordPage';
 import { ResetPasswordPage } from '../pages/ResetPasswordPage';
 import { MessagesPage } from '../pages/MessagesPage';
+import { TermsPage } from '../pages/TermsPage';
+import { PrivacyPage } from '../pages/PrivacyPage';
+import { GuidelinesPage } from '../pages/GuidelinesPage';
+import { ResourcesPage } from '../pages/ResourcesPage';
+import { CommunitiesPage } from '../pages/CommunitiesPage';
+import { CommunityChatPage } from '../pages/CommunityChatPage';
 
 // Admin pages
 import { AdminDashboardPage } from '../pages/admin/AdminDashboardPage';
@@ -29,10 +33,9 @@ import { AdminAuditLogPage } from '../pages/admin/AdminAuditLogPage';
 
 function PublicLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="min-h-screen bg-background">
-      <Navbar />
+    <>
       {children}
-    </div>
+    </>
   );
 }
 
@@ -111,6 +114,54 @@ export function AppRouter() {
         element={
           <ProtectedRoute>
             <MessagesPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/terms"
+        element={
+          <PublicLayout>
+            <TermsPage />
+          </PublicLayout>
+        }
+      />
+      <Route
+        path="/privacy"
+        element={
+          <PublicLayout>
+            <PrivacyPage />
+          </PublicLayout>
+        }
+      />
+      <Route
+        path="/guidelines"
+        element={
+          <PublicLayout>
+            <GuidelinesPage />
+          </PublicLayout>
+        }
+      />
+      <Route
+        path="/resources"
+        element={
+          <PublicLayout>
+            <ResourcesPage />
+          </PublicLayout>
+        }
+      />
+      <Route
+        path="/communities"
+        element={
+          <PublicLayout>
+            <CommunitiesPage />
+          </PublicLayout>
+        }
+      />
+      <Route
+        path="/communities/:id"
+        element={
+          <ProtectedRoute>
+            <CommunityChatPage />
           </ProtectedRoute>
         }
       />

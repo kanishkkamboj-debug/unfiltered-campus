@@ -8,7 +8,7 @@ import type { User } from '../../types/user.types';
 interface ProfileEditFormProps {
   user: User;
   onCancel: () => void;
-  onSave: (data: { username: string; bio: string; avatar_url: string }) => void;
+  onSave: (data: any) => void;
 }
 
 export function ProfileEditForm({ user, onCancel, onSave }: ProfileEditFormProps) {
@@ -17,6 +17,11 @@ export function ProfileEditForm({ user, onCancel, onSave }: ProfileEditFormProps
       username: user.username,
       bio: user.bio ?? '',
       avatar_url: user.avatar_url ?? '',
+      gender: user.gender ?? '',
+      age_range: user.age_range ?? '',
+      interests: user.interests?.join(', ') ?? '',
+      phone: user.phone ?? '',
+      dob: user.dob ?? '',
     },
   });
 
@@ -38,11 +43,39 @@ export function ProfileEditForm({ user, onCancel, onSave }: ProfileEditFormProps
         {...register('bio')}
         className="min-h-[80px]"
       />
+      <div className="grid grid-cols-2 gap-4">
+        <Input
+          label="Gender"
+          placeholder="e.g. Female, Male, Non-binary"
+          {...register('gender')}
+        />
+        <Input
+          label="Age Range"
+          placeholder="e.g. 18-24"
+          {...register('age_range')}
+        />
+      </div>
       <Input
-        label="Avatar URL"
-        placeholder="https://…"
-        {...register('avatar_url')}
+        label="Interests (comma separated)"
+        placeholder="coding, design, coffee"
+        {...register('interests')}
       />
+      <div className="pt-4 border-t border-border mt-4">
+        <h3 className="font-label-md text-label-md font-bold mb-3 text-on-surface">Private Details (Only visible to you)</h3>
+        <div className="grid grid-cols-2 gap-4">
+          <Input
+            label="Phone Number"
+            type="tel"
+            placeholder="555-0101"
+            {...register('phone')}
+          />
+          <Input
+            label="Date of Birth"
+            type="date"
+            {...register('dob')}
+          />
+        </div>
+      </div>
 
       <div className="flex justify-end gap-3 pt-2 border-t border-outline-variant">
         <Button variant="secondary" type="button" onClick={onCancel}>

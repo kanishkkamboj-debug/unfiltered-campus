@@ -5,6 +5,8 @@ import { Avatar } from '../ui/Avatar';
 import { formatDistanceToNow } from '../../utils/date';
 import { motion } from 'framer-motion';
 import type { Post } from '../../types/post.types';
+import { useAuth } from '../../hooks/useAuth';
+import { useNavigate } from 'react-router-dom';
 
 interface PostCardProps {
   post: Post;
@@ -12,8 +14,32 @@ interface PostCardProps {
 }
 
 export function PostCard({ post, compact = false }: PostCardProps) {
+  const [reacted, setReacted] = React.useState(post.reactions[0]?.reacted || false);
+  const [likes, setLikes] = React.useState(post.reactions[0]?.count || 0);
+  const [saved, setSaved] = React.useState(false);
+  const { isAuthenticated } = useAuth();
+  const navigate = useNavigate();
+
   const isAnonymous = post.isAnonymous;
   const displayName = isAnonymous ? 'Anonymous' : `@${!post.author.isAnonymous ? post.author.user.username : 'Anonymous'}`;
+
+  const handleReact = (e: React.MouseEvent) => {
+    e.preventDefault();
+    if (!isAuthenticated) return navigate('/login');
+    if (reacted) {
+      setReacted(false);
+      setLikes(prev => prev - 1);
+    } else {
+      setReacted(true);
+      setLikes(prev => prev + 1);
+    }
+  };
+
+  const handleSave = (e: React.MouseEvent) => {
+    e.preventDefault();
+    if (!isAuthenticated) return navigate('/login');
+    setSaved(!saved);
+  };
 
   return (
     <motion.article 
@@ -64,11 +90,12 @@ export function PostCard({ post, compact = false }: PostCardProps) {
 
       <div className="flex items-center gap-4 text-muted-text font-label-sm text-label-sm mt-2">
         <motion.button 
+          onClick={handleReact}
           whileTap={{ scale: 0.9 }}
-          className={`flex items-center gap-1.5 hover:text-primary transition-colors group/btn ${post.reactions[0]?.reacted ? 'text-primary' : ''}`}
+          className={`flex items-center gap-1.5 hover:text-primary transition-colors group/btn ${reacted ? 'text-primary' : ''}`}
         >
-          <ThumbsUp className={`w-4 h-4 group-hover/btn:fill-primary ${post.reactions[0]?.reacted ? 'fill-primary' : ''}`} /> 
-          <span>{post.reactions[0]?.count || 0}</span>
+          <ThumbsUp className={`w-4 h-4 group-hover/btn:fill-primary ${reacted ? 'fill-primary' : ''}`} /> 
+          <span>{likes}</span>
         </motion.button>
         <Link to={`/posts/${post.id}`} className="flex items-center gap-1.5 hover:text-primary transition-colors group/btn">
           <motion.div whileTap={{ scale: 0.9 }}>
@@ -77,11 +104,12 @@ export function PostCard({ post, compact = false }: PostCardProps) {
           <span>{post.commentCount} Comments</span>
         </Link>
         <motion.button 
+          onClick={handleSave}
           whileTap={{ scale: 0.9 }}
-          className="flex items-center gap-1.5 hover:text-primary transition-colors ml-auto group/btn"
+          className={`flex items-center gap-1.5 hover:text-primary transition-colors ml-auto group/btn ${saved ? 'text-primary' : ''}`}
         >
-          <Bookmark className="w-4 h-4 group-hover/btn:fill-primary" /> 
-          <span className="hidden sm:inline">Save</span>
+          <Bookmark className={`w-4 h-4 group-hover/btn:fill-primary ${saved ? 'fill-primary' : ''}`} /> 
+          <span className="hidden sm:inline">{saved ? 'Saved' : 'Save'}</span>
         </motion.button>
       </div>
     </motion.article>
